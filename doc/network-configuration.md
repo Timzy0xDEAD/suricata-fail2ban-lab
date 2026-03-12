@@ -1,25 +1,25 @@
-## Network Configuration
-### Defense Machine (Ubuntu Server)
-#### Assign IP address
+# Network Configuration
+## Defense Machine (Ubuntu Server)
+### Assign IP address
 ```bash
 sudo ip addr add 192.168.10.1/24 dev enp0s8
 sudo ip addr add 192.168.20.1/24 dev enp0s9
 ```
 
-#### enable interface
+### enable interface
 ```bash
 sudo ip link set enp0s8 up
 sudo ip link set enp0s9 up
 ```
 
-#### for Permanent IP configuration
+### for Permanent IP configuration
 
-##### Backup the current Netplan configuration:
+#### Backup the current Netplan configuration:
 ```bash
 ls /etc/netplan/
 sudo cp /etc/netplan/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml.bak
 ```
-##### Edit Netplan to assign static IPs:
+#### Edit Netplan to assign static IPs:
 ```bash
 network:
     version: 2
@@ -34,27 +34,39 @@ network:
               - 192.168.20.1/24
 ```
 
-##### Apply changes:
+#### Apply changes:
 ```bash
 sudo netplan apply
 ```
-### Victim Machine
-#### Assign IP address
+### Enable IP Forwarding
+```bash
+sudo nano /etc/sysctl.conf
+```
+#### Add or uncomment the following line:
+```bash
+net.ipv4.ip_forward = 1
+```
+#### Apply the change without rebooting:
+```bash
+sudo sysctl -p
+```
+## Victim Machine
+### Assign IP address
 ```bash
 sudo ip addr add 192.168.10.10/24 dev eth0
 sudo ip link set eth0 up
 ```
-#### Set default gateway
+### Set default gateway
 ```bash
 sudo ip route add default via 192.168.10.1
 ```
-### Attacker Machine (Kali)
-#### Assign IP address
+## Attacker Machine (Kali)
+### Assign IP address
 ```bash
 sudo ip addr add 192.168.20.10/24 dev eth0
 sudo ip link set eth0 up
 ```
-#### Set default gateway
+### Set default gateway
 ```bash
 sudo ip route add default via 192.168.20.1
 ```
