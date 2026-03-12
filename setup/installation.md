@@ -1,5 +1,5 @@
 
-## Suricata & Fail2Ban Installation Script
+## Suricata & Fail2Ban Installation 
 
 ### Update system packages
 ```bash
