@@ -3,7 +3,6 @@
 This lab simulates a real-world network attack scenario across two isolated subnets, with an Ubuntu server acting as a monitored gateway between an attacker and a vulnerable target.
 
 ## Components
- Metasploitable 2192.168.10.10Intentionally vulnerable target
 
 | Host     | IP       | Role     |
 |:---------|:--------:|---------:|
